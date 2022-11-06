@@ -2,11 +2,10 @@ __pycache__
 venv
 .env
 docker-compose.yml
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+front_end/node_modules
+front_end/.pnp
 .pnp.js
 
 # testing
