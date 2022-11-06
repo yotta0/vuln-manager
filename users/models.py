@@ -37,7 +37,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True)
 
-    USERNAME = 'email'
+    USERNAME_FIELD = 'email'
     objects = CustomUserManager()
 
     def __str__(self):
