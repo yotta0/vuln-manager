@@ -42,8 +42,9 @@ def decodeJWT(bearer):
 class CustomPagination(PageNumberPagination):
     page_size = 50
 
-def normalize_query(query_string, find_terms=re.compile(r'"([^"]+)"|(\S+)').findall(), normspace=re.compile(r'\s{2,}').sub):
-    return [normspace(' ', (t[0] or t[1]).strip()) for t in find_terms(query_string)]
+def normalize_query(query_string, findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)] 
 
 def get_query(query_string, search_fields):
     query = None # Query to search for every search term
