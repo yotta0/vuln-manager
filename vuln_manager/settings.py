@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'users',
-    'app_manager'
+    'app_manager',
 ]
 
 MIDDLEWARE = [
