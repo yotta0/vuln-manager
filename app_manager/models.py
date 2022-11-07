@@ -3,14 +3,14 @@ from users.models import CustomUser
 from users.views import add_user_activity
 
 class HostsGroup(models.Model):
-    created_by = models.ForeignKey(CustomUser, null=True, related_name='hosts_group', on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(CustomUser, null=True, related_name='hosts_groups', on_delete=models.SET_NULL)
     name = models.CharField(max_length=100, unique=True)
     belongs_to = models.ForeignKey('self', null=True, related_name='group_relations', on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-created_at', )
+        ordering = ('-created_at',)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,10 +35,10 @@ class HostsGroup(models.Model):
 
 class Hosts(models.Model):
     created_by = models.ForeignKey(
-        CustomUser, null=True, related_name='hosts_grou´', on_delete=models.SET_NULL
+        CustomUser, null=True, related_name='hosts_group', on_delete=models.SET_NULL
     )
     code = models.CharField(max_length=10, unique=True, null=True)
-    group = models.ForeignKey(HostsGroup, null=True, related_name='hosts', on_delete=models.SET_NULL)
+    group = models.ForeignKey(HostsGroup, null=True, related_name='hosts_items', on_delete=models.SET_NULL)
     total = models.PositiveIntegerField()
     remaining = models.PositiveIntegerField(null=True)
     name = models.CharField(max_length=255)
@@ -46,7 +46,7 @@ class Hosts(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-created_at', )
+        ordering = ('-created_at',)
 
     def save(self, *args, **kwargs):
         is_new = self.pk is None
