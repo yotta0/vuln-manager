@@ -10,6 +10,15 @@ from datetime import datetime
 from vuln_manager.utils import get_access_token
 from vuln_manager.custom_methods import IsAuthenticatedCustom
 
+
+def add_user_activity(user, action):
+    UserActivities.objects.create(
+        user_id=user.id,
+        email=user.email,
+        full_name=user.full_name,
+        action=action
+    )
+
 class CreateUserView(ModelViewSet):
     http_method_names = ['post']
     queryset = CustomUser.objects.all()
@@ -21,6 +30,8 @@ class CreateUserView(ModelViewSet):
         valid_request.is_valid(raise_exception=True)
 
         CustomUser.objects.create(**valid_request.validated_data)
+
+        add_user_activity(request.user, 'added new user')
 
         return Response({'success': 'User created successfully'}, status=status.HTTP_201_CREATED)
 
@@ -62,6 +73,8 @@ class LoginView(ModelViewSet):
         user.last_login = datetime.now()
         user.save()
 
+        add_user_activity(request.user, 'logged in')
+
         return Response({'access': access})
 
 
@@ -83,6 +96,8 @@ class UpdatePasswordView(ModelViewSet):
 
         user.set_password(valid_request.validated_data['password'])
         user.save()
+
+        add_user_activity(request.user, 'updated password')
 
         return Response({'success': 'Password updated successfully'})
 
