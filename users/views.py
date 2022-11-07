@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from .serializers import (
-    CreateUserSerializer, CustomUser, LoginSerializer, UpdatePasswordSerializer, CustomUserSerializer
+    CreateUserSerializer, CustomUser, LoginSerializer, UpdatePasswordSerializer, 
+    CustomUserSerializer, UserActivities, UserActivitiesSerializer
 )
 from rest_framework.response import Response
 from rest_framework import status
@@ -95,3 +96,22 @@ class CustomUserView(ModelViewSet):
     def list(self, request):
         user_data = self.serializer_class(request.user).data
         return Response(user_data)
+
+
+class UserActivitiesView(ModelViewSet):
+    serializer_class = UserActivitiesSerializer
+    http_method_names = ['get']
+    queryset = UserActivities.objects.all()
+    permission_classes = (IsAuthenticatedCustom, )
+
+
+class UsersView(ModelViewSet):
+    serializer_class = CustomUserSerializer
+    http_method_names = ['get']
+    queryset = CustomUser.objects.all()
+    permission_classes = (IsAuthenticatedCustom, )
+
+    def list(self, request):
+        users = self.queryset().filter(is_superuser=False)
+        users_data = self.serializer_class(users, many=True).data
+        return Response(users_data)
