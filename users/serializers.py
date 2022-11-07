@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import CustomUser, Roles
+from .models import CustomUser, roles
 
 
 class CreateUserSerializer(serializers.Serializer):
     email = serializers.EmailField()
     full_name = serializers.CharField()
-    role = serializers.ChoiceField(choices=Roles)
+    role = serializers.ChoiceField(choices=roles)
 
 
 class LoginSerializer(serializers.Serializer):

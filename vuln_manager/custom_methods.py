@@ -3,8 +3,12 @@ from .utils import decodeJWT
 
 class IsAuthenticatedCustom(BasePermission):
     
-    def has_permission(self, request):
-        auth_token = request.Meta.get('HTTP_AUTHORIZATION', None)
+    def has_permission(self, request, _):
+        try:
+            auth_token = request.Meta.get('HTTP_AUTHORIZATION', None)
+        except Exception:
+            return False
+
         if not auth_token:
             return False
         
