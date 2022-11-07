@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from .serializers import (
-    CreateUserSerializer, CustomUser, LoginSerializer, UpdatePasswordSerializer
+    CreateUserSerializer, CustomUser, LoginSerializer, UpdatePasswordSerializer, CustomUserSerializer
 )
 from rest_framework.response import Response
 from rest_framework import status
@@ -64,7 +64,7 @@ class LoginView(ModelViewSet):
         return Response({'access': access})
 
 
-class UpdatePassword(ModelViewSet):
+class UpdatePasswordView(ModelViewSet):
     serializer_class = UpdatePasswordSerializer
     http_method_names = ['post']
     queryset = CustomUser.objects.all()
@@ -84,3 +84,14 @@ class UpdatePassword(ModelViewSet):
         user.save()
 
         return Response({'success': 'Password updated successfully'})
+
+
+class CustomUserView(ModelViewSet):
+    serializer_class = CustomUserSerializer
+    http_method_names = ['get']
+    queryset = CustomUser.objects.all()
+    permission_classes = (IsAuthenticatedCustom, )
+
+    def list(self, request):
+        user_data = self.serializer_class(request.user).data
+        return Response(user_data)
