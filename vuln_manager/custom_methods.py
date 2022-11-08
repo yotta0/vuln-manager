@@ -1,4 +1,5 @@
 from rest_framework.permissions import BasePermission
+from rest_framework.views import exception_handler, Response
 from .utils import decodeJWT
 
 class IsAuthenticatedCustom(BasePermission):
@@ -19,3 +20,13 @@ class IsAuthenticatedCustom(BasePermission):
         
         request.user = user
         return True
+
+
+def custom_exception_handler(exc, context):
+    response = exception_handler(exc, context)
+    if response is not None:
+        response
+    
+    exc_list = str(exc).split('DETAIL: ')
+
+    return Response({'error': exc_list[-1]}, status=403)
