@@ -8,17 +8,15 @@ const Login:FC = () => {
                 <h3>Sign In</h3>
                 <h2>Vuln Manager</h2>
             </div>
-            <Form
-                layout={'vertical'}
-            >
-                <Form.Item label="Field A">
-                    <Input placeholder="input placeholder" />
+            <Form layout={'vertical'}>
+                <Form.Item label="Email">
+                    <Input placeholder="input placeholder" type='email'/>
                 </Form.Item>
-                <Form.Item label="Field B">
-                    <Input placeholder="input placeholder" />
+                <Form.Item label="Password">
+                    <Input placeholder="input placeholder" type='password'/>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary">Submit</Button>
+                    <Button type="primary" block>Submit</Button>
                 </Form.Item>
             </Form>
         </div>
