@@ -1,22 +1,20 @@
 import {FC, useEffect, useState} from "react";
-import { authHandler, Logout } from "../utils/functions";
+import { authHandler, logout } from "../utils/functions";
+import { useAuth } from "../utils/hooks";
 import { UserType } from "../utils/types";
 
 const Home: FC = () => {
 
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        const checkUser = async () => {
-            const user:UserType | null = await authHandler()
-            if (!user) {
-                Logout()
-                return 
-            }
+    useAuth({
+        errorCallback: () => {
+            logout()
+        },
+        successCallback: () => {
             setLoading(false)
         }
-        checkUser()
-    }, [])
+    })
 
     if (loading){
         return <div>Loading...</div>
