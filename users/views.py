@@ -6,6 +6,7 @@ from .serializers import (
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
+from django.utils.timezone import utc
 from datetime import datetime
 from vuln_manager.utils import get_access_token
 from vuln_manager.custom_methods import IsAuthenticatedCustom
@@ -39,14 +40,14 @@ class CreateUserView(ModelViewSet):
 class LoginView(ModelViewSet):
     http_method_names = ['post']
     queryset = CustomUser.objects.all()
-    serializer_class = LoginSerializer()
+    serializer_class = LoginSerializer
 
     def create(self, request):
         valid_request = self.serializer_class(data=request.data)
         valid_request.is_valid(raise_exception=True)
 
         new_user = valid_request.validated_data['is_new_user']
-      
+
         if new_user:
             user = CustomUser.objects.filter(
                 email=valid_request.validated_data['email']
@@ -70,10 +71,10 @@ class LoginView(ModelViewSet):
             return Response({'error': 'Invalid credentials, email or password'}, status=status.HTTP_400_BAD_REQUEST)
 
         access = get_access_token({'user_id': user.id}, 1)
-        user.last_login = datetime.now()
+        user.last_login = datetime.utcnow().replace(tzinfo=utc)
+        add_user_activity(user, 'logged in')
         user.save()
 
-        add_user_activity(request.user, 'logged in')
 
         return Response({'access': access})
 
