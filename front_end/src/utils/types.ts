@@ -35,3 +35,20 @@ export interface AuthProps {
 export interface ContainerProps {
     children: React.ReactNode
 }
+
+export interface DashProps {
+    user?: UserType | null
+}
+
+export enum ActionTypes {
+    UPDATE_USER_INFO = '[action] update user info'
+}
+export interface ActionProps {
+    type: ActionTypes,
+    payload: UserType | null
+}
+
+export interface DashProviderProps {
+    state: DashProps,
+    dispatch: (arg:ActionProps) => void
+}

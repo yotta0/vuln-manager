@@ -1,27 +1,15 @@
-import {FC, useEffect, useState} from "react";
-import { authHandler, logout } from "../utils/functions";
-import { useAuth } from "../utils/hooks";
-import { UserType } from "../utils/types";
+import {FC, useContext} from "react";
+import { dash } from "../utils/dash";
 
 const Home: FC = () => {
 
-    const [loading, setLoading] = useState(true)
-
-    useAuth({
-        errorCallback: () => {
-            logout()
-        },
-        successCallback: () => {
-            setLoading(false)
-        }
-    })
-
-    if (loading){
-        return <div>Loading...</div>
-    }
+    const { state } = useContext(dash) 
 
     return (
         <div>
+        <>
+        {console.log(state)}
+        </>
             <h1>Home</h1>
         </div>
     )
