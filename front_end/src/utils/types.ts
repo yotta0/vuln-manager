@@ -5,9 +5,24 @@ export interface DataProps {
 }
 
 export interface CustomAxiosError extends Omit<AxiosError, 'response'> {
-    response: {
+    response?: {
         data: {
             error: string
         }
     }
+}
+
+export interface AuthTokenType {
+    headers: {
+        Authorization: string
+    }
+}
+
+export interface UserType {
+    email: string
+    full_name: string
+    id: string
+    created_at: string
+    role: string
+    last_login: string
 }
