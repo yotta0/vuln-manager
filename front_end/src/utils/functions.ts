@@ -13,7 +13,7 @@ export const getAuthToken = ():AuthTokenType | null => {
     return {headers: {Authorization: `Bearer ${accesstoken}`}}
 }
 
-export const Logout = () => {
+export const logout = () => {
     localStorage.removeItem(tokenName);
     window.location.href = '/login'
 }

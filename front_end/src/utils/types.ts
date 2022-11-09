@@ -26,3 +26,12 @@ export interface UserType {
     role: string
     last_login: string
 }
+
+export interface AuthProps {
+    errorCallback?: () => void,
+    successCallback?: () => void
+}
+
+export interface ContainerProps {
+    children: React.ReactNode
+}
