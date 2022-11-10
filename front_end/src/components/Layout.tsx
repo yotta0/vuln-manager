@@ -7,10 +7,10 @@ const Layout: FC<ContainerProps> = ({ children }) => {
     return <div className="layout">
         <div className="header">
             <div className="brand">
-                <h2>Vulnerability Manager</h2>
+                <h2 className="logo">Vulnerability Manager</h2>
             </div>
             <div className="rightNav">
-                <div className="UserAvatar">
+                <div className="userAvatar">
                     <img src={User} alt="user" />
                     <div className="text">Davi</div>
                 </div>

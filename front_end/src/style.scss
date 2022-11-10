@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
 
 $headerColor: #3a86ff;
 
@@ -41,15 +40,18 @@ html, body{
         align-items: center;
         justify-content: space-between;
         background-color: $headerColor;
-        height: 60px;
+        height: 80px;
         padding: 0 30px;
     
         .brand{
             width: $sideBarWidth + $spacing;
         }
 
-        .brand h2{
-            font-family: 'Abel', sans-serif;
+        .logo{
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #f1faee;
         }
 
@@ -59,5 +61,27 @@ html, body{
             justify-content: space-between;
             flex: 1
         }
+
+        .text{
+            color: #f1faee;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
     }
+}
+
+.userAvatar{
+    display: flex;
+    align-items: center;
+    img{
+        margin-right: 5px;
+    }
+}
+
+.logoutButton{
+    background-color: darken($headerColor, 40%);
+    padding: 7px 20px;
+    border-radius: 4px;
+    cursor: pointer;
 }
