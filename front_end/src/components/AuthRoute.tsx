@@ -1,4 +1,5 @@
-import { FC, useState, ReactNode } from "react";
+import Layout from "./Layout";
+import { FC, useState } from "react";
 import { logout } from "../utils/functions";
 import { useAuth } from "../utils/hooks";
 import { ContainerProps } from "../utils/types";
@@ -19,7 +20,9 @@ const AuthRoute: FC<ContainerProps> = ({ children }) => {
         return <div>Loading...</div>
     }
 
-    return <>{children}</>
+    return <Layout>
+        {children}
+    </Layout>
 }
 
 export default AuthRoute
