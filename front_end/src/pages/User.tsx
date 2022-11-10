@@ -1,15 +1,15 @@
 import {FC, useContext} from "react";
 import { dash } from "../utils/dash";
 
-const Home: FC = () => {
+const User: FC = () => {
 
     const { state } = useContext(dash) 
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>User</h1>
         </div>
     )
 }
 
-export default Home
+export default User

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { ContainerProps } from '../utils/types';
-import Logo from "../assets/logo.svg";
+import UsersGroup from "../assets/users_group.svg";
+import Dashboard from "../assets/dashboard.svg";
 import User from "../assets/user.svg";
 
 const Layout: FC<ContainerProps> = ({ children }) => {
@@ -19,9 +20,23 @@ const Layout: FC<ContainerProps> = ({ children }) => {
                 </div>
             </div>
         </div>
-        <div className="sidebar"></div>
-        <div className="mainContent"></div>
-            {children}
+        <div className="bodyHolder">
+            <div className="sideBar">
+                <ul>
+                    <li>
+                        <img src={Dashboard} alt="dashboard logo" />
+                        <div className="text">Dashboard</div>
+                    </li>
+                    <li>
+                        <img src={UsersGroup} alt="users group logo" />
+                        <div className="text">Users</div>
+                    </li>
+                </ul>
+            </div>
+            <div className="mainContent">
+                {children}
+            </div>
+        </div>
     </div>
 }
 
