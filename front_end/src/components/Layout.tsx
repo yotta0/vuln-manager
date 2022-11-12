@@ -3,6 +3,7 @@ import { ContainerProps } from '../utils/types';
 import UsersGroup from "../assets/users_group.svg";
 import Dashboard from "../assets/dashboard.svg";
 import User from "../assets/user.svg";
+import { logout } from '../utils/functions';
 
 const Layout: FC<ContainerProps> = ({ children }) => {
     return <div className="layout">
@@ -16,7 +17,7 @@ const Layout: FC<ContainerProps> = ({ children }) => {
                     <div className="text">Davi</div>
                 </div>
                 <div className="logoutButton">
-                    <div className="text">Logout</div>
+                    <div className="text" onClick={logout}>Logout</div>
                 </div>
             </div>
         </div>
