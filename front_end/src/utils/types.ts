@@ -1,7 +1,7 @@
 import { AxiosError } from "axios"
 
 export interface DataProps {
-    [key: string]: string | boolean | number
+    [key: string]: string | boolean | number | null
 }
 
 export interface CustomAxiosError extends Omit<AxiosError, 'response'> {
@@ -36,14 +36,19 @@ export interface ContainerProps {
 
 export interface DashProps {
     user?: UserType | null
+    updatePasswordUserId: number | null
 }
 
 export enum ActionTypes {
-    UPDATE_USER_INFO = '[action] update user info'
+    UPDATE_USER_INFO = '[action] update user info',
+    UPDATE_PASSWORD_USER_ID = '[action] update password user id'
 }
-export interface ActionProps {
-    type: ActionTypes,
+export type ActionProps = {
+    type: ActionTypes.UPDATE_USER_INFO,
     payload: UserType | null
+} | {
+    type: ActionTypes.UPDATE_PASSWORD_USER_ID,
+    payload: number | null
 }
 
 export interface DashProviderProps {
