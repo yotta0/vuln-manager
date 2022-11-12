@@ -1,12 +1,98 @@
-import { Table } from "antd";
-import {FC, useContext, useState} from "react";
+import { Table, notification } from "antd";
+import {FC, useEffect, useState} from "react";
 import AddUserForm from "../components/AddUserForm";
-import { dash } from "../utils/dash";
+import { getAuthToken } from "../utils/functions";
+import { AuthTokenType } from "../utils/types";
+import axios, { AxiosResponse } from "axios"
+import { UsersUrl } from "../utils/network";
+
+interface UserProps{
+    created_at: string
+    email: string
+    full_name: string
+    is_active: string
+    last_login: string
+    role: string
+    key?: number
+    id: number
+}
 
 const User: FC = () => {
 
-    const { state } = useContext(dash) 
     const [modalState, setModalState] = useState(false)
+    const [fetching, setFetching] = useState(true)
+    const [users, setUsers] = useState<UserProps[]>()
+
+      
+      const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'key',
+            key: 'key',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Name',
+            dataIndex: 'full_name',
+            key: 'full_name',
+        },
+        {
+            title: 'Is Active',
+            dataIndex: 'is_active',
+            key: 'is_active',
+        },
+        {
+            title: 'Last Login',
+            dataIndex: 'last_login',
+            key: 'last_login',
+        },
+        {
+            title: 'Role',
+            dataIndex: 'role',
+            key: 'role',
+        },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            key: 'created_at',
+        }
+      ];
+
+    const getUsers = async () => {
+        const headers = getAuthToken() as AuthTokenType
+        
+        const response:AxiosResponse = await axios.get(
+            UsersUrl, headers).catch(
+                (e) => {
+                    notification.error({
+                        message: 'Error Creating User',
+                        description: e.response?.data.error
+                })
+                }
+            ) as AxiosResponse
+        
+        if(response){
+            const data = (response.data as UserProps[]).map(
+                (item) => ({...item, key: item.id, is_active: item.is_active.toString()})
+            )
+            setUsers(data)
+            setFetching(false)
+        }
+    }
+
+    useEffect(() => {
+        getUsers()
+    }, [])
+
+    const onCreateUser = () => {
+        setModalState(false)
+        setFetching(true)
+        getUsers()
+    }
 
     return (
         <>
@@ -23,10 +109,14 @@ const User: FC = () => {
                     </div>
                 </div>
                 <br />
-                <Table dataSource={dataSource} columns={columns}></Table>
+                <Table 
+                    dataSource={users} 
+                    columns={columns} 
+                    loading={fetching}>
+                </Table>
             </div>
             <AddUserForm 
-                onSuccessCallback={() => alert('submitted')} 
+                onSuccessCallback={onCreateUser} 
                 isModalOpen={modalState}
                 onClose={() => setModalState(false)}
             />

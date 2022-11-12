@@ -1,6 +1,9 @@
-import { Form, Input, Button, Select, Modal } from "antd"
+import { Form, Input, Button, Select, Modal, notification } from "antd"
 import {FC, useState} from "react"
-import { DataProps } from "../utils/types"
+import { getAuthToken } from "../utils/functions"
+import { AuthTokenType, DataProps } from "../utils/types"
+import axios, { AxiosResponse } from "axios"
+import { CreateUserUrl } from "../utils/network"
 
 
 interface AddUserFormProps {
@@ -17,8 +20,30 @@ const AddUserForm:FC<AddUserFormProps> = ({
 }) => {
 
         const [loading, setLoading] = useState(false)
-        const onSubmit = (values: DataProps) => {
-            console.log(values)
+        const onSubmit = async (values: DataProps) => {
+            setLoading(true)
+            const headers = getAuthToken() as AuthTokenType
+            if(!headers) {
+                return null
+            }
+        
+            const response:AxiosResponse = await axios.post(CreateUserUrl, values, headers).catch(
+                (e) => {
+                    notification.error({
+                        message: 'Error Creating User',
+                        description: e.response?.data.error
+                   })
+                }
+            ) as AxiosResponse
+            setLoading(false)
+
+            if(response){
+                notification.success({
+                    message: 'Success Creating User',
+                    description: 'User Created Successfully'
+               })
+                onSuccessCallback()
+            }
     }
 
     return (
@@ -39,7 +64,7 @@ const AddUserForm:FC<AddUserFormProps> = ({
                 </Form.Item>
                 <Form.Item 
                     label="Name"
-                    name='name'
+                    name='full_name'
                     rules={[{ required: true, 
                         message: 'Please input your name!'}]}
                     >
