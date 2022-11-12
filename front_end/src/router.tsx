@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import AuthRoute from './components/AuthRoute'
 import User from './pages/User'
 import UpdateUserPassword from './pages/UpdateUserPassword'
+import Hosts from './pages/Hosts'
 
 const Router:FC = () => {
     return <BrowserRouter>
@@ -21,6 +22,10 @@ const Router:FC = () => {
             <Route path='/users' element={
                 <AuthRoute>
                     <User />
+                </AuthRoute>} />
+            <Route path='/hosts' element={
+                <AuthRoute>
+                    <Hosts />
                 </AuthRoute>} />
         </Routes>
     </BrowserRouter>

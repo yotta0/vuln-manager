@@ -17,7 +17,7 @@ interface UserProps{
     id: number
 }
 
-const User: FC = () => {
+const Hosts: FC = () => {
 
     const [modalState, setModalState] = useState(false)
     const [fetching, setFetching] = useState(true)
@@ -26,9 +26,9 @@ const User: FC = () => {
       
       const columns = [
         {
-            title: 'Host Code',
-            dataIndex: 'host_code',
-            key: 'id',
+            title: 'ID',
+            dataIndex: 'key',
+            key: 'key',
         },
         {
             title: 'Email',
@@ -92,7 +92,7 @@ const User: FC = () => {
         <>
             <div className="card">
                 <div className="cardHeader">
-                    <h1 className="headContent">Users</h1>
+                    <h1 className="headContent">Hosts</h1>
                     <div className="rightContent">
                         <div className="searchInput">
                             <input type="text" />
@@ -118,4 +118,4 @@ const User: FC = () => {
     )
 }
 
-export default User
+export default Hosts
