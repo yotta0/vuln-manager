@@ -21,7 +21,7 @@ export const logout = () => {
 }
 
 export const authHandler = async ():Promise<UserType  | null> => {
-    const response = await axiosRequest<UserType>({url: MeUrl, hasAuth: true})
+    const response = await axiosRequest<UserType>({url: MeUrl, hasAuth: true, showError: false})
 
     if(response){
         return response.data
