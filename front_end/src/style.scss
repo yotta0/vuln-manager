@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+
+:root{
+    --headerHeight: 80px;
+}
+
+$headerColor: #3a86ff;
+
+$headerHeight: 80px;
+
+$sideBarWidth: 250px;
+$spacing: 30px;
+
+html, body{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600px;
+}
+
 .login{
     width: 100%;
     min-height: 100vh;
@@ -16,4 +34,127 @@
             margin-bottom: 20px;
         }
     }
+}
+
+.layout{
+    width: 100%;
+
+    .header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $headerColor;
+        height: var(--headerHeight);
+        padding: 0 $spacing;
+    
+        .brand{
+            width: $sideBarWidth;
+        }
+
+        .logo{
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f1faee;
+        }
+
+        .rightNav{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1
+        }
+
+        .text{
+            color: #f1faee;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+    }
+}
+
+.userAvatar{
+    display: flex;
+    align-items: center;
+    img{
+        margin-right: 5px;
+    }
+}
+
+.logoutButton{
+    background-color: darken($headerColor, 40%);
+    padding: 7px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bodyHolder{
+    width: 100%;
+    min-height: calc(100vh - var(--headerHeight));
+    max-height: calc(100vh - var(--headerHeight));
+    display: flex;
+    background-color: #e5e5e5;
+}
+
+.sideBar{
+    width: $sideBarWidth;
+    background-color: white;
+
+    ul{
+        margin: 50px 0 0 $spacing;
+        padding: 0;
+        list-style: none;
+
+        li{
+            display: flex;
+            align-items: center;
+            img{
+                margin-right: 5px;
+            }
+            margin-bottom: $spacing;
+            cursor: pointer;
+            color: darker(white, 40%);
+
+            &.active{
+                color: black;
+            }
+        }
+    }
+}
+
+.mainContent{
+    max-height: calc(100vh - var(--headerHeight));
+    overflow: hidden;
+    overflow-y: auto;
+    flex: 1;
+    padding: $spacing;
+}
+
+.card{
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+
+    .cardHeader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .rightContent{
+            display: flex;
+            align-items: center;
+
+            button{
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.headContent{
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
 }
