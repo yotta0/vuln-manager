@@ -1,7 +1,7 @@
 import { AxiosError } from "axios"
 
 export interface DataProps {
-    [key: string]: string
+    [key: string]: string | boolean | number
 }
 
 export interface CustomAxiosError extends Omit<AxiosError, 'response'> {
@@ -13,9 +13,7 @@ export interface CustomAxiosError extends Omit<AxiosError, 'response'> {
 }
 
 export interface AuthTokenType {
-    headers: {
-        Authorization: string
-    }
+    Authorization: string
 }
 
 export interface UserType {

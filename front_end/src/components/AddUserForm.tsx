@@ -1,8 +1,7 @@
 import { Form, Input, Button, Select, Modal, notification } from "antd"
 import {FC, useState} from "react"
-import { getAuthToken } from "../utils/functions"
-import { AuthTokenType, DataProps } from "../utils/types"
-import axios, { AxiosResponse } from "axios"
+import { axiosRequest, getAuthToken } from "../utils/functions"
+import { DataProps } from "../utils/types"
 import { CreateUserUrl } from "../utils/network"
 
 
@@ -22,19 +21,13 @@ const AddUserForm:FC<AddUserFormProps> = ({
         const [loading, setLoading] = useState(false)
         const onSubmit = async (values: DataProps) => {
             setLoading(true)
-            const headers = getAuthToken() as AuthTokenType
-            if(!headers) {
-                return null
-            }
         
-            const response:AxiosResponse = await axios.post(CreateUserUrl, values, headers).catch(
-                (e) => {
-                    notification.error({
-                        message: 'Error Creating User',
-                        description: e.response?.data.error
-                   })
-                }
-            ) as AxiosResponse
+            const response = await axiosRequest({
+                method: 'post',
+                url: CreateUserUrl,
+                hasAuth: true,
+                payload: values
+            })
             setLoading(false)
 
             if(response){

@@ -1,7 +1,7 @@
 import { Table, notification } from "antd";
 import {FC, useEffect, useState} from "react";
 import AddUserForm from "../components/AddUserForm";
-import { getAuthToken } from "../utils/functions";
+import { axiosRequest, getAuthToken } from "../utils/functions";
 import { AuthTokenType } from "../utils/types";
 import axios, { AxiosResponse } from "axios"
 import { UsersUrl } from "../utils/network";
@@ -62,21 +62,15 @@ const User: FC = () => {
         }
       ];
 
-    const getUsers = async () => {
-        const headers = getAuthToken() as AuthTokenType
-        
-        const response:AxiosResponse = await axios.get(
-            UsersUrl, headers).catch(
-                (e) => {
-                    notification.error({
-                        message: 'Error Creating User',
-                        description: e.response?.data.error
-                })
-                }
-            ) as AxiosResponse
+    const getUsers = async () => {        
+        const response = await axiosRequest<UserProps[]>({
+            url: UsersUrl,
+            hasAuth: true,
+            showError: false
+        })
         
         if(response){
-            const data = (response.data as UserProps[]).map(
+            const data = response.data.map(
                 (item) => ({...item, key: item.id, is_active: item.is_active.toString()})
             )
             setUsers(data)
