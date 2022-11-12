@@ -131,3 +131,30 @@ html, body{
     flex: 1;
     padding: $spacing;
 }
+
+.card{
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+
+    .cardHeader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .rightContent{
+            display: flex;
+            align-items: center;
+
+            button{
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.headContent{
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}

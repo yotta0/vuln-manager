@@ -16,7 +16,7 @@ const Router:FC = () => {
                 <AuthRoute>
                     <Home />
                 </AuthRoute>} />
-            <Route path='/user' element={
+            <Route path='/users' element={
                 <AuthRoute>
                     <User />
                 </AuthRoute>} />

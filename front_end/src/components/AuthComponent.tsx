@@ -35,14 +35,14 @@ const AuthComponent:FC<AuthComponentProps> = ({
                     name='email'
                     rules={[{ required: true, message: 'Please input your username!'}]}
                     >
-                    <Input placeholder="input placeholder" type='email'/>
+                    <Input placeholder="Email" type='email'/>
                 </Form.Item>
                 {isPassword && <Form.Item 
                     label="Password"
                     name='password'
                     rules={[{ required: true, message: 'Please input your password!'}]}
                     >
-                    <Input placeholder="input placeholder" type='password'/>
+                    <Input placeholder="Password" type='password'/>
                 </Form.Item>}
                 <Form.Item>
                     <Button htmlType='submit' type="primary" block loading={loading}>{bottonText}</Button>
