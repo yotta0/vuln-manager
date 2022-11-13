@@ -1,18 +1,11 @@
 import { Form, Input, Button, Select, Modal, notification } from "antd"
 import {FC, useState} from "react"
-import { axiosRequest, getAuthToken } from "../utils/functions"
-import { DataProps } from "../utils/types"
+import { axiosRequest } from "../utils/functions"
+import { DataProps, FormModalProps } from "../utils/types"
 import { CreateUserUrl } from "../utils/network"
 
 
-interface AddUserFormProps {
-    isModalOpen?: boolean
-    onSuccessCallback: () => void
-    onClose: () => void
-}
-
-
-const AddUserForm:FC<AddUserFormProps> = ({
+const AddUserForm:FC<FormModalProps> = ({
     isModalOpen = false,
     onSuccessCallback,
     onClose

@@ -1,10 +1,10 @@
 import { Table, notification } from "antd";
 import {FC, useEffect, useState} from "react";
 import AddUserForm from "../components/AddUserForm";
-import { axiosRequest, getAuthToken } from "../utils/functions";
-import { AuthTokenType } from "../utils/types";
-import axios, { AxiosResponse } from "axios"
+import { axiosRequest } from "../utils/functions";
+import {  DataProps } from "../utils/types";
 import { UsersUrl } from "../utils/network";
+import ContentLayout from "../components/ContentLayout";
 
 interface UserProps{
     created_at: string
@@ -21,7 +21,7 @@ const User: FC = () => {
 
     const [modalState, setModalState] = useState(false)
     const [fetching, setFetching] = useState(true)
-    const [users, setUsers] = useState<UserProps[]>()
+    const [users, setUsers] = useState<UserProps[]>([])
 
       
       const columns = [
@@ -89,32 +89,19 @@ const User: FC = () => {
     }
 
     return (
-        <>
-            <div className="card">
-                <div className="cardHeader">
-                    <h1 className="headContent">Users</h1>
-                    <div className="rightContent">
-                        <div className="searchInput">
-                            <input type="text" />
-                        </div>
-                        <button onClick={() => setModalState(true)}>
-                            Add User
-                        </button>
-                    </div>
-                </div>
-                <br />
-                <Table 
-                    dataSource={users} 
-                    columns={columns} 
-                    loading={fetching}>
-                </Table>
-            </div>
+        <ContentLayout
+            pageTitle='Users'
+            setModalState={setModalState}
+            dataSource={(users as unknown) as DataProps[]}
+            columns={columns}
+            fetching={fetching}
+        >
             <AddUserForm 
                 onSuccessCallback={onCreateUser} 
                 isModalOpen={modalState}
                 onClose={() => setModalState(false)}
             />
-        </>
+        </ContentLayout>
     )
 }
 
