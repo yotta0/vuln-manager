@@ -29,7 +29,7 @@ const ContentLayout:FC<PropsWithChildren<ContentLayoutProps>> = ({
                             <input type="text" />
                         </div>
                         <button onClick={() => setModalState(true)}>
-                            Add User
+                            Add {pageTitle}
                         </button>
                         {extraButton}
                     </div>

@@ -33,7 +33,7 @@ export const authHandler = async ():Promise<UserType  | null> => {
 interface AxiosRequestProps {
     method?: 'get' | 'post' | 'put' | 'delete'
     url: string
-    payload?: DataProps
+    payload?: DataProps | FormData
     hasAuth?: boolean
     showError?: boolean
     errorObject?: {
