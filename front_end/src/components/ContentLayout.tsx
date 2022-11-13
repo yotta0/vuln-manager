@@ -1,5 +1,5 @@
 import { Table } from 'antd';
-import {FC, PropsWithChildren} from 'react';
+import {FC, ReactElement, PropsWithChildren} from 'react';
 import { DataProps } from '../utils/types';
 
 interface ContentLayoutProps {
@@ -8,6 +8,7 @@ interface ContentLayoutProps {
     dataSource: DataProps[]
     columns: DataProps[]
     fetching: boolean
+    extraButton?: ReactElement
 }
 const ContentLayout:FC<PropsWithChildren<ContentLayoutProps>> = ({
     children, 
@@ -15,7 +16,8 @@ const ContentLayout:FC<PropsWithChildren<ContentLayoutProps>> = ({
     setModalState,
     dataSource, 
     columns,
-    fetching
+    fetching,
+    extraButton
 }) => {
     return (
         <>
@@ -29,6 +31,7 @@ const ContentLayout:FC<PropsWithChildren<ContentLayoutProps>> = ({
                         <button onClick={() => setModalState(true)}>
                             Add User
                         </button>
+                        {extraButton}
                     </div>
                 </div>
                 <br />
