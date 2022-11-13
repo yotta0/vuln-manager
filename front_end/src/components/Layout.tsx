@@ -1,13 +1,20 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { ContainerProps } from '../utils/types';
 import UsersGroup from "../assets/users_group.svg";
 import Dashboard from "../assets/dashboard.svg";
 import User from "../assets/user.svg";
 import Host from "../assets/host.svg"
 import { logout } from '../utils/functions';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Layout: FC<ContainerProps> = ({ children }) => {
+
+    const location = useLocation()
+
+    useEffect(() => {
+        console.log({pathInfo: location.pathname})
+    }, [location])
+
     return <div className="layout">
         <div className="header">
             <div className="brand">

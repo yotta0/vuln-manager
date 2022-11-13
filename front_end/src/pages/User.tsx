@@ -26,8 +26,8 @@ const User: FC = () => {
       
       const columns = [
         {
-            title: 'Host Code',
-            dataIndex: 'host_code',
+            title: 'ID',
+            dataIndex: 'id',
             key: 'id',
         },
         {
