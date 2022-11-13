@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ContainerProps } from '../utils/types';
 import UsersGroup from "../assets/users_group.svg";
 import Dashboard from "../assets/dashboard.svg";
@@ -10,10 +10,20 @@ import { Link, useLocation } from 'react-router-dom';
 const Layout: FC<ContainerProps> = ({ children }) => {
 
     const location = useLocation()
+    const [activePath, setActivePath] = useState("/")
 
     useEffect(() => {
-        console.log({pathInfo: location.pathname})
+        setActivePath(location.pathname)
     }, [location])
+
+    const isActive = (path: string):string => {
+        switch(activePath){
+            case path:
+                return "active"
+            default:
+                return ""
+        }
+    }
 
     return <div className="layout">
         <div className="header">
@@ -34,19 +44,19 @@ const Layout: FC<ContainerProps> = ({ children }) => {
             <div className="sideBar">
                 <ul>
                     <Link to="/">
-                    <li>
+                    <li className={isActive("/")}>
                         <img src={Dashboard} alt="dashboard logo" />
                         <div className="text">Dashboard</div>
                     </li>
                     </Link>
                     <Link to="/users">
-                    <li>
+                    <li className={isActive("/users")}>
                         <img src={UsersGroup} alt="users group logo" />
                         <div className="text">Users</div>
                     </li>
                     </Link>
                     <Link to="/hosts">
-                    <li>
+                    <li className={isActive("/hosts")}>
                         <img src={Host} alt="Hosts" />
                         <div className="text">Hosts</div>
                     </li>
