@@ -55,3 +55,9 @@ export interface DashProviderProps {
     state: DashProps,
     dispatch: (arg:ActionProps) => void
 }
+
+export interface FormModalProps {
+    isModalOpen?: boolean
+    onSuccessCallback: () => void
+    onClose: () => void
+}
