@@ -1,4 +1,4 @@
-import { Form, Input, Button, Select, Modal, notification } from "antd"
+import { Form, Input, Button, Modal, notification } from "antd"
 import {ChangeEvent, FC, useState} from "react"
 import { axiosRequest } from "../utils/functions"
 import { DataProps, FormModalProps } from "../utils/types"
@@ -41,6 +41,7 @@ const AddHostFormCSV:FC<FormModalProps> = ({
 
     const handleFileChange = async (e:ChangeEvent<HTMLInputElement>) => {
         if(e.target.files){
+            setCSVFile(e.target.files[0])
         }
     }
 
@@ -55,9 +56,14 @@ const AddHostFormCSV:FC<FormModalProps> = ({
             <Form layout={'vertical'} onFinish={onSubmit}>
                 <Form.Item 
                     label="Select File (CSV)"
+                    rules={[{
+                        required: true,
+                        message: 'Please select a file'
+                    }]}
                     >
                     <Input 
                         type='file'
+                        accept='.csv'
                         onChange={handleFileChange}/>
                 </Form.Item>
                 <Form.Item>
